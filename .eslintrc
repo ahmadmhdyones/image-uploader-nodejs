@@ -1,0 +1,64 @@
+{
+	"env": {
+		"node": true,
+		"commonjs": true,
+		"es2021": true
+	},
+	"extends": [
+		"airbnb",
+		"prettier",
+		"plugin:node/recommended"
+	],
+	"plugins": [
+		"import",
+		"node",
+		"prettier"
+	],
+	"parserOptions": {
+		"ecmaVersion": "latest"
+	},
+	"rules": {
+		"prettier/prettier": "warn",
+		"no-console": "warn",
+		"object-shorthand": "warn",
+		"no-param-reassign": "warn",
+		"no-return-await": "warn",
+		"no-underscore-dangle": "off",
+		"spaced-comment": "off",
+		"consistent-return": "off",
+		"func-names": "off",
+		"no-process-exit": "off",
+		"class-methods-use-this": "off",
+		"prefer-destructuring": [
+			"error",
+			{
+				"object": true,
+				"array": true
+			}
+		],
+		"no-unused-vars": [
+			"error",
+			{
+				"argsIgnorePattern": "req|res|next|val"
+			}
+		],
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				"js": "never",
+				"jsx": "never"
+			}
+		],
+		"import/no-extraneous-dependencies": [
+			"error",
+			{
+				"devDependencies": [
+					"**/*.test.js",
+					"**/*.spec.js",
+					"tests/**/*.js"
+				]
+			}
+		]
+	}
+}
