@@ -9,6 +9,7 @@ const staticFilesPrefix = '/static';
 const storageFilesPrefix = '/storage';
 
 const apiVersion = process.env.API_VERSION;
+const maxPayloadSize = 25 * 1024 * 1024; // 25MB
 
 const corsOptions = {
   origin: '*',
@@ -47,4 +48,5 @@ module.exports = {
   staticFilesPrefix,
   storageFilesPrefix,
   apiVersion,
+  maxPayloadSize,
 };
