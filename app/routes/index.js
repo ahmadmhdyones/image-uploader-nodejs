@@ -7,7 +7,7 @@ const { AppError } = require('../utils/index');
 
 const router = Router();
 
-router.use(['/api', `/api/v${apiVersion}`], apiRouter);
+router.use([`/api/v${apiVersion}`, '/api'], apiRouter);
 router.use('/', webRouter);
 
 router.all('*', (req, res, next) => {
