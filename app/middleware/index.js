@@ -1,7 +1,7 @@
-const checkPayloadSize = require('./checkPayloadSize.mw');
+const checkPayload = require('./checkPayload.mw');
 const parseFormData = require('./parseFormData.mw');
 
 module.exports = {
-  checkPayloadSize,
+  checkPayload,
   parseFormData,
 };

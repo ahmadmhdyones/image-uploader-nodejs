@@ -8,7 +8,7 @@ require('colors');
 const router = require('./routes');
 const config = require('./config/app.conf');
 const errorHandler = require('./controllers/error.controller');
-const { parseFormData, checkPayloadSize } = require('./middleware');
+const { parseFormData, checkPayload } = require('./middleware');
 
 const app = express();
 
@@ -34,7 +34,7 @@ app.use(
   express.static(path.join(config.basedir, 'uploads'))
 );
 
-app.use(checkPayloadSize);
+app.use(checkPayload);
 app.use(router);
 app.use(errorHandler);
 
