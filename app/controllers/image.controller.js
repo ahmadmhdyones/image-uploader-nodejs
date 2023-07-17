@@ -1,7 +1,7 @@
 const multer = require('multer');
 
 const service = require('../services/image.service');
-const { maxPayloadSize, basedir } = require('../config/app.conf');
+const { maxPayloadSize } = require('../config/app.conf');
 const {
   isImage,
   AppError,
@@ -81,7 +81,10 @@ const getFileByName = catchAsync(async (req, res, next) => {
   if (!file) return next(new AppError('No such file', 404));
 
   const statusCode = file.isGenerated === true ? 201 : 200;
-  res.status(statusCode).sendFile(file.fullpath, { root: basedir });
+  res.status(statusCode).json({
+    status: 'success',
+    data: { image: mapImageAsResponse(file) },
+  });
 });
 
 module.exports = {
