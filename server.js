@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 /* eslint-disable no-process-exit */
 /* eslint-disable no-console */
 
@@ -7,6 +6,8 @@ require('dotenv').config();
 const app = require('./app/app');
 const config = require('./app/config/srv.conf');
 const { connectToMongoDB } = require('./app/database/Mongo.database');
+
+let server = null;
 
 process.on('unhandledException', (err) => {
   console.error(`🥊 ${'Error!'.bold} ${err.name}`.red.inverse, '\n', err);
@@ -22,20 +23,19 @@ const init = async () => {
     }`.green.inverse
   );
 
-  const instance = app.listen(config.port, () => {
+  server = app.listen(config.port, () => {
     console.log(
-      `🚀 ${'Server running'.bold} in ${
+      `🚀 ${'Server running!'.bold} in ${
         process.env.NODE_ENV.underline
-      } on port ${config.port.underline}...`.yellow
+      } on port ${config.port.underline}...`.yellow.inverse
     );
   });
 
   const timeout = Number(config.timeout);
-  instance.setTimeout(timeout);
-
-  return instance;
+  server.setTimeout(timeout);
 };
-const server = init();
+
+init();
 
 process.on('unhandledRejection', (err) => {
   console.error(`🥊 ${'Error!'.bold} ${err.name}`.red.inverse, '\n', err);
