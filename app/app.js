@@ -5,10 +5,14 @@ const morgan = require('morgan');
 const cors = require('cors');
 require('colors');
 
-const router = require('./routes');
 const config = require('./config/app.conf');
-const errorHandler = require('./controllers/error.controller');
-const { parseFormData, checkPayload } = require('./middleware');
+const router = require('./routes');
+const {
+  checkPayload,
+  addRequestStartTime,
+  errorHandler,
+  parseFormData,
+} = require('./middleware');
 
 const app = express();
 
@@ -34,6 +38,7 @@ app.use(
   express.static(path.join(config.basedir, 'uploads'))
 );
 
+app.use(addRequestStartTime);
 app.use(checkPayload);
 app.use(router);
 app.use(errorHandler);
