@@ -103,8 +103,43 @@ const getImageHashedName = (filename, width = '', height = '', prefix = '') => {
   return slug;
 };
 
+/**
+ * Maps an image file object to a simplified response object.
+ *
+ * @param {Object} file - The file object to be mapped.
+ * @param {string} file.originalName - The original name of the uploaded file.
+ * @param {string} file.hashedName - The hashed name of the uploaded file.
+ * @param {number} file.width - The width of the uploaded image file.
+ * @param {number} file.height - The height of the uploaded image file.
+ * @param {number} file.size - The size of the uploaded image file in bytes.
+ * @param {string} file.type - The MIME type of the uploaded file.
+ * @param {string} file.filename - The filename of the uploaded file on the server.
+ * @param {string} file.src - The URL of the uploaded file on the server.
+ *
+ * @returns {Object} A simplified response object containing the properties:
+ * - originalName
+ * - hashedName
+ * - width
+ * - height
+ * - size
+ * - type
+ * - filename
+ * - src
+ */
+const mapImageAsResponse = (file) => ({
+  originalName: file.originalName,
+  hashedName: file.hashedName,
+  width: file.width,
+  height: file.height,
+  size: file.size,
+  type: file.type,
+  filename: file.filename,
+  src: file.src,
+});
+
 module.exports = {
   getImageHashedName,
+  mapImageAsResponse,
   getMediaType,
   resizeImage,
   saveImage,

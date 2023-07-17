@@ -8,6 +8,7 @@ const {
   catchAsync,
   isValidParams,
   getImageHashedName,
+  mapImageAsResponse,
 } = require('../utils');
 
 /**
@@ -47,18 +48,7 @@ const createFile = catchAsync(async (req, res, next) => {
 
   res.status(201).json({
     status: 'success',
-    data: {
-      image: {
-        originalName: newFile.originalName,
-        hashedName: newFile.hashedName,
-        width: newFile.width,
-        height: newFile.height,
-        size: newFile.size,
-        type: newFile.type,
-        filename: newFile.filename,
-        src: newFile.src,
-      },
-    },
+    data: { image: mapImageAsResponse(newFile) },
   });
 });
 
