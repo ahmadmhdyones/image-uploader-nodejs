@@ -1,0 +1,13 @@
+{
+	"git.decorations.enabled": true,
+	"material-icon-theme.files.associations": {
+		"tree": "tree",
+		"todos": "todo"
+	},
+	"eslint.run": "onType",
+	"cSpell.words": [
+		"ndb",
+		"rfs",
+		"srv"
+	],
+}

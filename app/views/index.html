@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Image Uploader</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.0.96/css/materialdesignicons.min.css"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.6.10/vuetify.min.css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.7.10/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/2.6.10/vuetify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-container fluid>
+          <v-card class="mb-3">
+            <v-card-title>Upload Image</v-card-title>
+            <v-card-text>
+              <v-file-input v-model="form.image" label="Select an image"></v-file-input>
+              <v-btn color="primary" @click="uploadImage">Upload</v-btn>
+              <div class="my-2">
+                <h5>Last uploaded image:</h5>
+                <span v-if="uploadedImage" class="d-block">{{ uploadedImage }}</span>
+                <span v-else>-</span>
+              </div>
+            </v-card-text>
+          </v-card>
+
+          <v-card class="mb-3">
+            <v-card-title>Fetch Image</v-card-title>
+            <v-card-text>
+              <v-text-field v-model="form.imageName" label="Image Name"></v-text-field>
+              <v-text-field v-model="form.width" label="Width"></v-text-field>
+              <v-text-field v-model="form.height" label="Height"></v-text-field>
+              <v-btn color="primary" @click="fetchImage">Fetch</v-btn>
+              <img v-if="fetchedImage" :src="fetchedImage.src" alt="Fetched Image" class="mx-auto d-block my-1" />
+            </v-card-text>
+          </v-card>
+
+          <v-overlay :value="isLoading">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+          </v-overlay>
+        </v-container>
+      </v-app>
+    </div>
+    <script src="static/scripts/main.js"></script>
+  </body>
+</html>
