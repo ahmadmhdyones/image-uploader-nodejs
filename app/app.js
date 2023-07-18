@@ -40,7 +40,7 @@ app.use(
   express.static(path.join(config.basedir, 'uploads'))
 ); // Serve storage files from the uploads directory
 
-app.use(helmet()); // Add various HTTP headers to enhance security
+app.use(helmet(config.helmetOptions)); // Add various HTTP headers to enhance security
 
 app.use(express.json(config.parser[0])); // Parse JSON-encoded bodies
 app.use(express.urlencoded(config.parser[1])); // Parse URL-encoded bodies

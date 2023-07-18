@@ -14,6 +14,7 @@
  * @property {number} maxPayloadSize - The maximum payload size for requests.
  * @property {Object} corsOptions - The CORS options for the application.
  * @property {Object[]} morganOptions - The options for the Morgan logger middleware.
+ * @property {Object[]} helmetOptions - The options for the HTTP security headers.
  * @property {Object[]} parser - The options for the body parser middleware.
  * @property {Object} apiLimiter - The rate limiter middleware for the API.
  */
@@ -64,6 +65,10 @@ const morganOptions = [
   },
 ];
 
+const helmetOptions = {
+  contentSecurityPolicy: false,
+};
+
 const parser = [
   {
     limit: '10kb',
@@ -93,6 +98,7 @@ module.exports = {
   maxPayloadSize,
   corsOptions,
   morganOptions,
+  helmetOptions,
   parser,
   apiLimiter,
 };
