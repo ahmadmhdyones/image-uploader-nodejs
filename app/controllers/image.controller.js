@@ -9,6 +9,7 @@ const {
   isValidParams,
   getImageHashedName,
   mapImageAsResponse,
+  isValidImageResolution,
 } = require('../utils');
 
 /**
@@ -64,14 +65,15 @@ const createFile = catchAsync(async (req, res, next) => {
  * @description This controller handles the GET /images/:name API endpoint for retrieving an image file by name and resolution.
  */
 const getFileByName = catchAsync(async (req, res, next) => {
+  const { name } = req.params;
+  const { w, h } = req.query;
+  const resolution = { width: Number(w) || null, height: Number(h) || null };
+
   if (!isValidParams(['w', 'h'], req.query))
     return next(new AppError('Invalid query parameters', 400));
 
-  const { name } = req.params;
-  const resolution = {
-    width: Number(req.query.w) || null,
-    height: Number(req.query.h) || null,
-  };
+  if (!isValidImageResolution(resolution))
+    return next(new AppError('Invalid query parameters value!', 400));
 
   const file = await service.findOrCreateOneByNameAndResolution(
     name,

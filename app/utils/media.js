@@ -137,7 +137,25 @@ const mapImageAsResponse = (file) => ({
   src: file.src,
 });
 
+/**
+ * Determines whether an image resolution is valid, based on its width and height.
+ *
+ * @param {Object} resolution - An object containing the width and height of an image.
+ * @param {number|string} resolution.width - The width of the image in pixels.
+ * @param {number|string} resolution.height - The height of the image in pixels.
+ *
+ * @returns {boolean} true if the resolution is valid (positive integers), false otherwise.
+ */
+const isValidImageResolution = ({ width, height }) => {
+  const w = Number(width) || null;
+  const h = Number(height) || null;
+  if (w && (w < 1 || !Number.isInteger(w))) return false;
+  if (h && (h < 1 || !Number.isInteger(h))) return false;
+  return true;
+};
+
 module.exports = {
+  isValidImageResolution,
   getImageHashedName,
   mapImageAsResponse,
   getMediaType,
