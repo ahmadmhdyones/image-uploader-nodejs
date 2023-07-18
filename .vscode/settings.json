@@ -7,6 +7,7 @@
 	"eslint.run": "onType",
 	"cSpell.words": [
 		"ndb",
-		"rfs"
+		"rfs",
+		"srv"
 	],
 }
