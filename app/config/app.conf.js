@@ -24,18 +24,18 @@ const path = require('path');
 const rfs = require('rotating-file-stream');
 const rateLimit = require('express-rate-limit');
 
-const appurl = process.env.APP_URL;
-const appname = process.env.APP_NAME;
-const basedir = process.env.NODE_PATH;
-const logLevel = process.env.LOG_LEVEL;
-const environment = process.env.NODE_ENV;
+const appurl = process.env.APP_URL || 'http://localhost:8000';
+const appname = process.env.APP_NAME || 'image-uploader';
+const basedir = process.env.NODE_PATH || '.';
+const logLevel = process.env.LOG_LEVEL || 'debug';
+const environment = process.env.NODE_ENV || 'development';
 
 const staticFilesPrefix = '/static';
 const storageFilesPrefix = '/storage';
 const storageUploadsPath = path.join(basedir, 'uploads');
 
-const apiVersion = process.env.API_VERSION;
-const maxPayloadSize = 25 * 1024 * 1024; // 25MB
+const apiVersion = process.env.API_VERSION || 1;
+const maxPayloadSize = process.env.MAX_PAYLOAD_SIZE || 25 * 1024 * 1024; // 25MB
 
 const corsOptions = {
   origin: '*',
@@ -80,8 +80,8 @@ const parser = [
 ];
 
 const apiLimiter = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 100,
+  max: process.env.API_LIMIT_MAX || 100,
+  windowMs: process.env.API_LIMIT_WINDOW || 60 * 60 * 100, // one hour
   message: 'Too many requests from this IP, please try again in an hour!',
 });
 
