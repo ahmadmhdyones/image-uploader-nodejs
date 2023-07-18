@@ -72,7 +72,7 @@ const getFileByName = catchAsync(async (req, res, next) => {
   if (!isValidParams(['w', 'h'], req.query))
     return next(new AppError('Invalid query parameters', 400));
 
-  if (!isValidImageResolution(resolution))
+  if (!isValidImageResolution({ width: w, height: h }))
     return next(new AppError('Invalid query parameters value!', 400));
 
   const file = await service.findOrCreateOneByNameAndResolution(

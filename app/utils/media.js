@@ -30,7 +30,7 @@ const getMediaType = ({ mimetype }) => {
  */
 const isImage = (file) => {
   // allowed file extensions
-  const fileTypes = /jpeg|png|webp|avif|gif|svg/;
+  const fileTypes = /jpeg|png|webp|avif|gif|svg|jpg/;
 
   // check file extension_name and media_type
   const mediatype = getMediaType(file) === 'image';
@@ -104,40 +104,6 @@ const getImageHashedName = (filename, width = '', height = '', prefix = '') => {
 };
 
 /**
- * Maps an image file object to a simplified response object.
- *
- * @param {Object} file - The file object to be mapped.
- * @param {string} file.originalName - The original name of the uploaded file.
- * @param {string} file.hashedName - The hashed name of the uploaded file.
- * @param {number} file.width - The width of the uploaded image file.
- * @param {number} file.height - The height of the uploaded image file.
- * @param {number} file.size - The size of the uploaded image file in bytes.
- * @param {string} file.type - The MIME type of the uploaded file.
- * @param {string} file.filename - The filename of the uploaded file on the server.
- * @param {string} file.src - The URL of the uploaded file on the server.
- *
- * @returns {Object} A simplified response object containing the properties:
- * - originalName
- * - hashedName
- * - width
- * - height
- * - size
- * - type
- * - filename
- * - src
- */
-const mapImageAsResponse = (file) => ({
-  originalName: file.originalName,
-  hashedName: file.hashedName,
-  width: file.width,
-  height: file.height,
-  size: file.size,
-  type: file.type,
-  filename: file.filename,
-  src: file.src,
-});
-
-/**
  * Determines whether an image resolution is valid, based on its width and height.
  *
  * @param {Object} resolution - An object containing the width and height of an image.
@@ -147,17 +113,26 @@ const mapImageAsResponse = (file) => ({
  * @returns {boolean} true if the resolution is valid (positive integers), false otherwise.
  */
 const isValidImageResolution = ({ width, height }) => {
-  const w = Number(width) || null;
-  const h = Number(height) || null;
+  const w = Number(width);
+  const h = Number(height);
+
+  // check if the initial values were zero
+  if (w === 0 && width) return false;
+  if (h === 0 && height) return false;
+
+  // check if the values are NaN
+  if (Number.isNaN(w) || Number.isNaN(h)) return false;
+
+  // check if the value was integer and positive
   if (w && (w < 1 || !Number.isInteger(w))) return false;
   if (h && (h < 1 || !Number.isInteger(h))) return false;
+
   return true;
 };
 
 module.exports = {
   isValidImageResolution,
   getImageHashedName,
-  mapImageAsResponse,
   getMediaType,
   resizeImage,
   saveImage,
